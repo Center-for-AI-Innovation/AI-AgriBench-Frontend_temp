@@ -133,8 +133,6 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 				})}
 			</Form>
 
-			<style></style>
-
 			<DataTable
 				className='order-column'
 				data={data}
