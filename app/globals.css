@@ -62,3 +62,11 @@ div.dt-container div.dt-layout-row {
 .dt-column-order {
 	text-align: right !important;
 }
+
+.dt-column-title {
+	margin-right: 3px !important;
+}
+
+.dt-column-header {
+	display: block !important;
+}
