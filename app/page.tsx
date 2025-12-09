@@ -8,7 +8,7 @@ export default async function LeaderboardPage() {
 	const evaluationsTable = process.env.EVALUATIONS_TABLE!
 	const scoresTable = process.env.SCORES_TABLE!
 	const evaluations = (await supabase.from(evaluationsTable as any).select()).data as any
-	const maxRows = 4000
+	const maxRows = 10000
 
 	const scoresList = []
 
