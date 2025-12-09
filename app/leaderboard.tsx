@@ -12,7 +12,7 @@ const categoryOptions = [
 	{ value: 'Weeds_and_Weed_Management', label: 'Weeds' },
 	{ value: 'Crop_Nutrition_and_Fertility_Management', label: 'Nutrition' },
 	{ value: 'Soils_and_Soil_Health', label: 'Soils' },
-	{ value: 'Seed_Hybrid_Rootstock_Selection', label: 'Seed Hybrid' },
+	{ value: 'Seed_Hybrid_Rootstock_Selection', label: 'Seed Hybrids' },
 	{ value: 'Horticultural_and_Agronomic_Practices', label: 'Horticulture' },
 	{ value: 'Water_Management_and_Irrigation', label: 'Water' },
 	{ value: 'Weather_and_Weather_Risks', label: 'Weather' }
