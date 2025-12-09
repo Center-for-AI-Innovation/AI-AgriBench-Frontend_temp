@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Leaderboard } from './leaderboard'
 import { createClient } from '@/lib/supabase/server'
 
@@ -29,7 +28,7 @@ export default async function LeaderboardPage() {
 				.select()
 				.in('evaluation_id', evaluationIds)
 				.range(startIndex, stopIndex)
-		).data! as any
+		).data!
 
 		scores.push(...pagedScores)
 	}
