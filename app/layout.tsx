@@ -7,7 +7,7 @@ const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/l
 export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
 	title: 'AIAgribench',
-	description: 'Vikram if you see this tell me what it should be'
+	description: 'AIAgribench Leaderboard',
 }
 
 const sourceSans = Source_Sans_3({
