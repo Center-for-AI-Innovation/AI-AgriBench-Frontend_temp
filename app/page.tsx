@@ -4,24 +4,31 @@ import { createClient } from '@/lib/supabase/server'
 
 export default async function LeaderboardPage() {
 	const supabase = await createClient()
-	const evaluationsTable = process.env.EVALUATIONS_TABLE!
-	const scoresTable = process.env.SCORES_TABLE!
-	const evaluations = (await supabase.from(evaluationsTable).select()).data as any
-	const maxRows = 10000
+	const leaderboard = process.env.LEADERBBOARD || 'main'
+	const evaluations = (await supabase.from('evaluations').select().eq('leaderboard', leaderboard))
+		.data
+	const evaluationIds = evaluations!.map((evaluation) => evaluation.id)
+	const maxRows = 500
 
 	const scores = []
 
-	const totalRows = (
-		await supabase.from(scoresTable).select('*', { count: 'exact', head: true })
-	).count!
+	const totalRowsThing = (
+		await supabase
+			.from('scores')
+			.select('*', { count: 'exact', head: true })
+			.in('evaluation_id', evaluationIds)
+	)
+
+	const totalRows = totalRowsThing.count || 0
 
 	for (let i = 0; i < totalRows; i += maxRows) {
 		const startIndex = i
-		const stopIndex = Math.min(i + maxRows, totalRows)
+		const stopIndex = Math.min(i + maxRows - 1, totalRows)
 		const pagedScores = (
 			await supabase
-				.from(scoresTable as any)
+				.from('scores')
 				.select()
+				.in('evaluation_id', evaluationIds)
 				.range(startIndex, stopIndex)
 		).data! as any
 
