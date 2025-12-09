@@ -136,8 +136,15 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 			<style></style>
 
 			<DataTable
+				className='order-column'
 				data={data}
-				options={{ searching: false, paging: false, info: false, ordering: true }}>
+				options={{
+					searching: false,
+					paging: false,
+					info: false,
+					ordering: true,
+					order: [[1, 'desc']]
+				}}>
 				<thead>
 					<tr>
 						<th>Subject Model</th>
