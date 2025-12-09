@@ -142,10 +142,12 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 					info: false,
 					ordering: true,
 					order: [[1, 'desc']],
-					columnDefs: [{
-						targets: '_all',
-						className: 'dt-left'
-					}]
+					columnDefs: [
+						{
+							targets: '_all',
+							className: 'dt-left'
+						}
+					]
 				}}>
 				<thead>
 					<tr>
