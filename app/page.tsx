@@ -6,13 +6,13 @@ export default async function LeaderboardPage() {
 	const supabase = await createClient()
 	const evaluationsTable = process.env.EVALUATIONS_TABLE!
 	const scoresTable = process.env.SCORES_TABLE!
-	const evaluations = (await supabase.from(evaluationsTable as any).select()).data as any
+	const evaluations = (await supabase.from(evaluationsTable).select()).data as any
 	const maxRows = 10000
 
 	const scores = []
 
 	const totalRows = (
-		await supabase.from(scoresTable as any).select('*', { count: 'exact', head: true })
+		await supabase.from(scoresTable).select('*', { count: 'exact', head: true })
 	).count!
 
 	for (let i = 0; i < totalRows; i += maxRows) {
