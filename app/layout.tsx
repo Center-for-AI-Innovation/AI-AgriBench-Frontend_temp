@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
 	title: 'AIAgribench',
 	description: 'AIAgribench Leaderboard',
-}
+} 
 
 const sourceSans = Source_Sans_3({
 	variable: '--font-source-sans',
