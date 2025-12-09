@@ -8,8 +8,7 @@ export default async function LeaderboardPage() {
 	const evaluations = (await supabase.from('evaluations').select().eq('leaderboard', leaderboard))
 		.data
 	const evaluationIds = evaluations!.map((evaluation) => evaluation.id)
-	const maxRows = 500
-
+	const maxRows = 10000
 	const scores = []
 
 	const totalRowsThing = (
