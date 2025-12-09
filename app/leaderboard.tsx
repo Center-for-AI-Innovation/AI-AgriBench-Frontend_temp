@@ -32,28 +32,25 @@ const DataTable = dynamic(
 )
 
 interface LeaderboardProps {
-	scores: Record<number, Score[]>
+	scores: Score[]
 	evaluations: Evaluation[]
 }
 
-function getDataFromScores(scores: Record<number, Score[]>, evaluations: Evaluation[]) {
+function getDataFromScores(scores: Score[], evaluations: Evaluation[]) {
 	const data: string[][] = []
-	const groupedEvaluations = Object.groupBy(evaluations, (item) => item.id)
+	const groupedScores = Object.groupBy(scores, (item) => item.evaluation_id)
+	const groupedEvaluations = Object.groupBy(evaluations, (item) => item.subject_model)
 
-	for (const evaluationId in scores) {
-		const evaluationGroup = groupedEvaluations[evaluationId]
-		const evaluationScores = scores[evaluationId]
-
-		if (!evaluationGroup || !evaluationScores || evaluationGroup.length === 0) continue
-
-		const evaluation = evaluationGroup[0]
+	for (const subjectModel in groupedEvaluations) {
+		const evaluationGroup = groupedEvaluations[subjectModel]
 		const accuracy: number[] = []
 		const completeness: number[] = []
 		const conciseness: number[] = []
 		const relevance: number[] = []
 
-		if (evaluationScores) {
-			evaluationScores.forEach((score) => {
+		for (const evaluation of evaluationGroup!) {
+			const evaluationScores = groupedScores[evaluation.id]
+			evaluationScores!.forEach((score) => {
 				accuracy.push(score.accuracy)
 				completeness.push(score.completeness)
 				conciseness.push(score.conciseness)
@@ -63,8 +60,7 @@ function getDataFromScores(scores: Record<number, Score[]>, evaluations: Evaluat
 
 		if (accuracy.length > 0) {
 			data.push([
-				evaluation.subject_model,
-				evaluation.judge_model,
+				subjectModel,
 				calculateAverage(accuracy).toFixed(2),
 				calculateAverage(completeness).toFixed(2),
 				calculateAverage(conciseness).toFixed(2),
@@ -92,12 +88,10 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 
 		setSelectedCategories(newSelectedCategories)
 
-		const filteredScores: Record<number, Score[]> = {}
-		for (const evaluationId in scores) {
-			filteredScores[evaluationId] = scores[evaluationId].filter((score) => {
-				return score.categories.some((cat) => newSelectedCategories.includes(cat))
-			})
-		}
+		const filteredScores = scores.filter((score) => {
+			return score.categories.some((cat) => newSelectedCategories.includes(cat))
+		})
+
 		const newData = getDataFromScores(filteredScores, evaluations)
 
 		setData(newData)
@@ -115,7 +109,6 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 				color: '#171717',
 				borderRadius: '8px'
 			}}>
-
 			<Form
 				style={{ paddingTop: '4px', paddingBottom: '0' }}
 				className='pl-2 d-flex flex-row'>
@@ -148,7 +141,6 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 				<thead>
 					<tr>
 						<th>Subject Model</th>
-						<th>Judge Model</th>
 						<th>Accuracy</th>
 						<th>Completeness</th>
 						<th>Conciseness</th>
