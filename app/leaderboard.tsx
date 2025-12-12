@@ -78,14 +78,12 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 		categoryOptions.map((option) => option.value)
 	)
 
-	const initialLinks: Record<string, string> = {}
+	const links: Record<string, string> = {}
 	for (const evaluation of evaluations) {
 		if (evaluation.link != null) {
-			initialLinks[evaluation.subject_model] = evaluation.link
+			links[evaluation.subject_model] = evaluation.link
 		}
 	}
-
-	const [links, setLinks] = useState<Record<string, string>>(initialLinks)
 
 	async function handleCheckChange(
 		e: ChangeEvent<HTMLInputElement>,
