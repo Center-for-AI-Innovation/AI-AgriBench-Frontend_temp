@@ -17,4 +17,5 @@ export interface Evaluation
 	judge_model: string
 	subject_model: string
 	judge_temperature: number
+	link: string | null
 }

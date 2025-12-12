@@ -78,6 +78,15 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 		categoryOptions.map((option) => option.value)
 	)
 
+	const initialLinks: Record<string, string> = {}
+	for (const evaluation of evaluations) {
+		if (evaluation.link != null) {
+			initialLinks[evaluation.subject_model] = evaluation.link
+		}
+	}
+
+	const [links, setLinks] = useState<Record<string, string>>(initialLinks)
+
 	async function handleCheckChange(
 		e: ChangeEvent<HTMLInputElement>,
 		option: { value: string; label?: string }
@@ -136,6 +145,33 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 			<DataTable
 				className='order-column'
 				data={data}
+				columns={[
+					{
+						title: 'Subject Model',
+						data: 0,
+						render: function (data) {
+							return links[data]
+								? `<a class='underline' href='${links[data]}' target='_blank' rel='noopener noreferrer'>${data}</a>`
+								: data
+						}
+					},
+					{
+						title: 'Accuracy',
+						data: 1
+					},
+					{
+						title: 'Completeness',
+						data: 2
+					},
+					{
+						title: 'Conciseness',
+						data: 3
+					},
+					{
+						title: 'Relevance',
+						data: 4
+					}
+				]}
 				options={{
 					searching: false,
 					paging: false,
@@ -148,17 +184,7 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 							className: 'dt-left'
 						}
 					]
-				}}>
-				<thead>
-					<tr>
-						<th>Subject Model</th>
-						<th>Accuracy</th>
-						<th>Completeness</th>
-						<th>Conciseness</th>
-						<th>Relevance</th>
-					</tr>
-				</thead>
-			</DataTable>
+				}}></DataTable>
 		</div>
 	)
 }
