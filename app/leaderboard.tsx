@@ -114,7 +114,8 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 			style={{
 				backgroundColor: '#D3CDC6',
 				color: '#171717',
-				borderRadius: '8px'
+				borderRadius: '8px',
+				border: '2px solid black'
 			}}>
 			<Form
 				style={{ paddingTop: '4px', paddingBottom: '0' }}
