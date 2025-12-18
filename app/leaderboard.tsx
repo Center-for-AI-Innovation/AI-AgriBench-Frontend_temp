@@ -113,9 +113,7 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 			className='h-full d-flex flex-column'
 			style={{
 				backgroundColor: '#D3CDC6',
-				color: '#171717',
-				borderRadius: '8px',
-				border: '2px solid black'
+				color: '#171717'
 			}}>
 			<Form
 				style={{ paddingTop: '4px', paddingBottom: '0' }}
@@ -142,6 +140,7 @@ export function Leaderboard({ scores, evaluations }: LeaderboardProps) {
 			</Form>
 
 			<DataTable
+				id='leaderboard'
 				className='order-column'
 				data={data}
 				columns={[
